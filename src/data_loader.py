@@ -31,7 +31,7 @@ class TennisDataLoader:
         """
         print(f"Loading data from {self.data_path}...")
         self.df = pd.read_csv(self.data_path)
-        print(f"✅ Loaded {len(self.df):,} matches")
+        print(f"Loaded {len(self.df):,} matches")
         return self.df
     
     def clean_data(self):
@@ -46,8 +46,8 @@ class TennisDataLoader:
         """
         if self.df is None:
             raise ValueError("No data loaded. Call load_data() first.")
-        
-        print("\n🧹 Cleaning data...")
+
+        print("\nCleaning data...")
         
         # Convert Date to datetime
         self.df['Date'] = pd.to_datetime(self.df['Date'])
@@ -76,9 +76,9 @@ class TennisDataLoader:
         
         # Sort by date (CRITICAL for ELO calculation)
         self.df = self.df.sort_values('Date').reset_index(drop=True)
-        
-        print(f"✅ Data cleaned. {len(self.df):,} matches remaining")
-        
+
+        print(f"Data cleaned. {len(self.df):,} matches remaining")
+
         return self.df
     
     def split_train_test(self, test_year=2025):
@@ -93,8 +93,8 @@ class TennisDataLoader:
         """
         if self.df is None:
             raise ValueError("No data loaded. Call load_data() first.")
-        
-        print(f"\n✂️ Splitting data: Train (before {test_year}) vs Test ({test_year})")
+
+        print(f"\nSplitting data: Train (before {test_year}) vs Test ({test_year})")
         
         train_df = self.df[self.df['Year'] < test_year].copy()
         test_df = self.df[self.df['Year'] >= test_year].copy()
@@ -131,28 +131,28 @@ class TennisDataLoader:
         """
         if self.df is None:
             raise ValueError("No data loaded. Call load_data() first.")
-        
+
         print("\n" + "="*60)
-        print("📊 DATA SUMMARY")
+        print("DATA SUMMARY")
         print("="*60)
-        
-        print(f"\n📅 Date Range: {self.df['Date'].min().date()} to {self.df['Date'].max().date()}")
-        print(f"🎾 Total Matches: {len(self.df):,}")
-        print(f"🏆 Tournaments: {self.df['Tournament'].nunique()}")
-        print(f"🎮 Players: {len(set(self.df['Player_1']) | set(self.df['Player_2']))}")
-        
-        print(f"\n🎾 Matches by Year:")
+
+        print(f"\nDate Range: {self.df['Date'].min().date()} to {self.df['Date'].max().date()}")
+        print(f"Total Matches: {len(self.df):,}")
+        print(f"Tournaments: {self.df['Tournament'].nunique()}")
+        print(f"Players: {len(set(self.df['Player_1']) | set(self.df['Player_2']))}")
+
+        print(f"\nMatches by Year:")
         year_counts = self.df['Year'].value_counts().sort_index()
         for year, count in year_counts.items():
             print(f"   {year}: {count:,} matches")
-        
-        print(f"\n🏟️ Surface Distribution:")
+
+        print(f"\nSurface Distribution:")
         surface_counts = self.df['Surface'].value_counts()
         for surface, count in surface_counts.items():
             percentage = (count / len(self.df)) * 100
             print(f"   {surface}: {count:,} matches ({percentage:.1f}%)")
-        
-        print(f"\n🏆 Grand Slams in Dataset:")
+
+        print(f"\nGrand Slams in Dataset:")
         grand_slams = ['Australian Open', 'French Open', 'Wimbledon', 'US Open']
         for slam in grand_slams:
             count = len(self.df[self.df['Tournament'] == slam])
@@ -186,4 +186,4 @@ def load_and_prepare_data(data_path='data/raw/atp_tennis.csv', test_year=2025):
 if __name__ == "__main__":
     # Example usage
     train, test, loader = load_and_prepare_data()
-    print(f"\n✅ Data ready! Training: {len(train):,} | Test: {len(test):,}")
+    print(f"\nData ready! Training: {len(train):,} | Test: {len(test):,}")

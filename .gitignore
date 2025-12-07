@@ -15,13 +15,16 @@ ENV/
 .ipynb_checkpoints/
 */.ipynb_checkpoints/*
 
-# Large data files (optional - remove if you want to push data)
+# Large data files
 data/raw/*.csv
 data/processed/*.csv
 data/predictions/*.csv
 
-# Models (large files)
+# Models
 models/*.pkl
+
+# CatBoost temporary files
+catboost_info/
 
 # IDE
 .idea/
@@ -35,6 +38,7 @@ Thumbs.db
 # Virtual environment
 .venv/
 venv/
+<<<<<<< HEAD
 =======
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -244,3 +248,8 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 >>>>>>> ba2119737d5ff8f438599365a394639535d818dc
+=======
+
+# Claude Code
+.claude/
+>>>>>>> 9cfdd71 (Upgrade pipeline with ensemble models for improved accuracy)

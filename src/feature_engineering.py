@@ -30,8 +30,8 @@ class FeatureEngineer:
         Returns:
             pd.DataFrame: DataFrame with basic features
         """
-        print("🔧 Creating basic features...")
-        
+        print("Creating basic features...")
+
         df_features = df.copy()
         
         # Ranking features (handle missing rankings)
@@ -57,9 +57,9 @@ class FeatureEngineer:
         df_features['odds_diff'] = df_features['Odd_1'].fillna(2.0) - df_features['Odd_2'].fillna(2.0)
         df_features['odds_implied_prob_1'] = 1 / df_features['Odd_1'].fillna(2.0)
         df_features['odds_implied_prob_2'] = 1 / df_features['Odd_2'].fillna(2.0)
-        
-        print(f"✅ Basic features created")
-        
+
+        print(f"Basic features created")
+
         return df_features
     
     def calculate_recent_form(self, df, window=10):
@@ -73,7 +73,7 @@ class FeatureEngineer:
         Returns:
             pd.DataFrame: DataFrame with recent form features
         """
-        print(f"📊 Calculating recent form (last {window} matches)...")
+        print(f"Calculating recent form (last {window} matches)...")
         
         # Initialize lists to store features
         recent_win_pct_1 = []
@@ -112,9 +112,9 @@ class FeatureEngineer:
         df_form['recent_win_pct_1'] = recent_win_pct_1
         df_form['recent_win_pct_2'] = recent_win_pct_2
         df_form['form_diff'] = form_diff
-        
-        print(f"✅ Recent form calculated")
-        
+
+        print(f"Recent form calculated")
+
         return df_form
     
     def calculate_head_to_head(self, df):
@@ -127,7 +127,7 @@ class FeatureEngineer:
         Returns:
             pd.DataFrame: DataFrame with H2H features
         """
-        print("🤝 Calculating head-to-head records...")
+        print("Calculating head-to-head records...")
         
         # Track H2H records
         h2h_records = defaultdict(lambda: defaultdict(int))
@@ -170,9 +170,9 @@ class FeatureEngineer:
         df_h2h['h2h_wins_2'] = h2h_wins_2
         df_h2h['h2h_total'] = h2h_total
         df_h2h['h2h_win_pct_1'] = h2h_win_pct_1
-        
-        print(f"✅ Head-to-head records calculated")
-        
+
+        print(f"Head-to-head records calculated")
+
         return df_h2h
     
     def calculate_surface_stats(self, df):
@@ -185,7 +185,7 @@ class FeatureEngineer:
         Returns:
             pd.DataFrame: DataFrame with surface-specific features
         """
-        print("🏟️ Calculating surface-specific stats...")
+        print("Calculating surface-specific stats...")
         
         # Track surface stats
         surface_stats = defaultdict(lambda: defaultdict(lambda: {'wins': 0, 'matches': 0}))
@@ -233,9 +233,9 @@ class FeatureEngineer:
         df_surface['surface_matches_1'] = surface_matches_1
         df_surface['surface_matches_2'] = surface_matches_2
         df_surface['surface_experience_diff'] = df_surface['surface_matches_1'] - df_surface['surface_matches_2']
-        
-        print(f"✅ Surface-specific stats calculated")
-        
+
+        print(f"Surface-specific stats calculated")
+
         return df_surface
     
     def create_target(self, df):
@@ -264,7 +264,7 @@ def engineer_all_features(df):
         pd.DataFrame: DataFrame with all engineered features
     """
     print("\n" + "="*60)
-    print("🔧 FEATURE ENGINEERING")
+    print("FEATURE ENGINEERING")
     print("="*60 + "\n")
     
     engineer = FeatureEngineer()
@@ -275,12 +275,12 @@ def engineer_all_features(df):
     df = engineer.calculate_head_to_head(df)
     df = engineer.calculate_surface_stats(df)
     df = engineer.create_target(df)
-    
+
     print("\n" + "="*60)
-    print(f"✅ Feature engineering complete!")
+    print(f"Feature engineering complete!")
     print(f"   Total features: {len(df.columns)}")
     print("="*60 + "\n")
-    
+
     return df
 
 
