@@ -211,7 +211,7 @@ def calculate_elo_for_dataframe(df, initial_rating=1500):
     Returns:
         pd.DataFrame: DataFrame with added ELO columns
     """
-    print("🎮 Calculating ELO ratings...")
+    print("Calculating ELO ratings...")
     print("   This may take a few minutes for large datasets...")
     
     # Initialize calculator
@@ -273,11 +273,11 @@ def calculate_elo_for_dataframe(df, initial_rating=1500):
     df_with_elo['surface_elo_diff'] = df_with_elo['surface_elo_1'] - df_with_elo['surface_elo_2']
     df_with_elo['expected_1'] = expected_1_list
     df_with_elo['expected_2'] = expected_2_list
-    
-    print(f"✅ ELO calculation complete!")
+
+    print(f"ELO calculation complete!")
     print(f"   Average ELO: {df_with_elo['elo_1'].mean():.1f}")
     print(f"   ELO range: {df_with_elo['elo_1'].min():.1f} - {df_with_elo['elo_1'].max():.1f}")
-    
+
     return df_with_elo, elo
 
 

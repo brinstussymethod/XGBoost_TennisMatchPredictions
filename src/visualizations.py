@@ -66,8 +66,8 @@ def plot_elo_evolution(df, players, surface=None, save_path=None):
     
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"✅ Plot saved to {save_path}")
-    
+        print(f"Plot saved to {save_path}")
+
     plt.show()
 
 
@@ -96,8 +96,8 @@ def plot_feature_importance(feature_importance_df, top_n=20, save_path=None):
     
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"✅ Plot saved to {save_path}")
-    
+        print(f"Plot saved to {save_path}")
+
     plt.show()
 
 
@@ -139,8 +139,8 @@ def plot_prediction_accuracy(results_df, group_by='Tournament', save_path=None):
     
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"✅ Plot saved to {save_path}")
-    
+        print(f"Plot saved to {save_path}")
+
     plt.show()
 
 
@@ -167,8 +167,8 @@ def plot_confusion_matrix(confusion_matrix, save_path=None):
     
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"✅ Plot saved to {save_path}")
-    
+        print(f"Plot saved to {save_path}")
+
     plt.show()
 
 
@@ -224,8 +224,8 @@ def plot_accuracy_by_round(results_df, tournament=None, save_path=None):
     
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"✅ Plot saved to {save_path}")
-    
+        print(f"Plot saved to {save_path}")
+
     plt.show()
 
 
@@ -260,8 +260,8 @@ def plot_calibration_curve(y_true, y_pred_proba, n_bins=10, save_path=None):
     
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"✅ Plot saved to {save_path}")
-    
+        print(f"Plot saved to {save_path}")
+
     plt.show()
 
 
@@ -275,15 +275,15 @@ def create_tournament_bracket_viz(tournament_df, predictions_df, tournament_name
         tournament_name (str): Name for the plot
     """
     print(f"\n{'='*60}")
-    print(f"🏆 {tournament_name} - Prediction Summary")
+    print(f"{tournament_name} - Prediction Summary")
     print(f"{'='*60}\n")
     
     # Calculate accuracy by round
     round_accuracy = predictions_df.groupby('Round').apply(
         lambda x: (x['prediction'] == x['target']).mean()
     )
-    
-    print("📊 Accuracy by Round:")
+
+    print("Accuracy by Round:")
     for round_name, accuracy in round_accuracy.items():
         matches = len(predictions_df[predictions_df['Round'] == round_name])
         correct = (predictions_df[predictions_df['Round'] == round_name]['prediction'] == 
@@ -293,9 +293,9 @@ def create_tournament_bracket_viz(tournament_df, predictions_df, tournament_name
     overall_accuracy = (predictions_df['prediction'] == predictions_df['target']).mean()
     total_matches = len(predictions_df)
     total_correct = (predictions_df['prediction'] == predictions_df['target']).sum()
-    
-    print(f"\n🎯 Overall Accuracy: {overall_accuracy:.1%} ({total_correct}/{total_matches} matches)")
-    
+
+    print(f"\nOverall Accuracy: {overall_accuracy:.1%} ({total_correct}/{total_matches} matches)")
+
     print(f"\n{'='*60}\n")
 
 

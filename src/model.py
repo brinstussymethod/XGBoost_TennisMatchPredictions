@@ -124,18 +124,18 @@ class TennisPredictionModel:
             dict: Training metrics
         """
         print("\n" + "=" * 60)
-        print("🏋️ TRAINING XGBOOST MODEL")
+        print("TRAINING XGBOOST MODEL")
         print("=" * 60 + "\n")
 
         # Prepare features
         X_train, y_train = self.prepare_features(df_train)
 
-        print(f"📊 Training set: {len(X_train):,} matches")
-        print(f"🔧 Features: {len(self.feature_names)}")
+        print(f"Training set: {len(X_train):,} matches")
+        print(f"Features: {len(self.feature_names)}")
 
         if df_val is not None:
             X_val, y_val = self.prepare_features(df_val, self.feature_names)
-            print(f"📊 Validation set: {len(X_val):,} matches")
+            print(f"Validation set: {len(X_val):,} matches")
 
             eval_set = [(X_train, y_train), (X_val, y_val)]
 
@@ -150,7 +150,7 @@ class TennisPredictionModel:
             val_pred = self.model.predict(X_val)
             val_accuracy = accuracy_score(y_val, val_pred)
 
-            print(f"\n✅ Validation Accuracy: {val_accuracy:.4f} ({val_accuracy * 100:.2f}%)")
+            print(f"\nValidation Accuracy: {val_accuracy:.4f} ({val_accuracy * 100:.2f}%)")
 
             metrics = {
                 'train_accuracy': accuracy_score(y_train, self.model.predict(X_train)),
@@ -164,7 +164,7 @@ class TennisPredictionModel:
                 'train_accuracy': accuracy_score(y_train, self.model.predict(X_train))
             }
 
-            print(f"\n✅ Training Accuracy: {metrics['train_accuracy']:.4f}")
+            print(f"\nTraining Accuracy: {metrics['train_accuracy']:.4f}")
 
         # Get feature importance
         self.feature_importance = pd.DataFrame({
@@ -172,7 +172,7 @@ class TennisPredictionModel:
             'importance': self.model.feature_importances_
         }).sort_values('importance', ascending=False)
 
-        print("\n🔝 Top 10 Most Important Features:")
+        print("\nTop 10 Most Important Features:")
         for idx, row in self.feature_importance.head(10).iterrows():
             print(f"   {row['feature']}: {row['importance']:.4f}")
 
@@ -218,19 +218,19 @@ class TennisPredictionModel:
 
         if print_report:
             print("\n" + "=" * 60)
-            print("📊 MODEL EVALUATION")
+            print("MODEL EVALUATION")
             print("=" * 60 + "\n")
 
-            print(f"✅ Accuracy: {accuracy:.4f} ({accuracy * 100:.2f}%)")
-            print(f"📈 Total Predictions: {len(predictions):,}")
-            print(f"🎯 Correct Predictions: {(predictions == y).sum():,}")
-            print(f"❌ Wrong Predictions: {(predictions != y).sum():,}")
+            print(f"Accuracy: {accuracy:.4f} ({accuracy * 100:.2f}%)")
+            print(f"Total Predictions: {len(predictions):,}")
+            print(f"Correct Predictions: {(predictions == y).sum():,}")
+            print(f"Wrong Predictions: {(predictions != y).sum():,}")
 
-            print("\n📋 Classification Report:")
+            print("\nClassification Report:")
             print(classification_report(y, predictions,
                                         target_names=['Player_2 Wins', 'Player_1 Wins']))
 
-            print("\n🔢 Confusion Matrix:")
+            print("\nConfusion Matrix:")
             cm = confusion_matrix(y, predictions)
             print(f"   True Negatives (P2 predicted & won): {cm[0, 0]}")
             print(f"   False Positives (P1 predicted, P2 won): {cm[0, 1]}")
@@ -261,7 +261,7 @@ class TennisPredictionModel:
                 'feature_names': self.feature_names,
                 'feature_importance': self.feature_importance
             }, f)
-        print(f"✅ Model saved to {filepath}")
+        print(f"Model saved to {filepath}")
 
     def load_model(self, filepath):
         """
@@ -275,7 +275,7 @@ class TennisPredictionModel:
             self.model = data['model']
             self.feature_names = data['feature_names']
             self.feature_importance = data['feature_importance']
-        print(f"✅ Model loaded from {filepath}")
+        print(f"Model loaded from {filepath}")
 
 
 if __name__ == "__main__":
